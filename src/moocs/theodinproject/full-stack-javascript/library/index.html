@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+    
+<body>
+    <div id="wrapper">
+        <form id="book-form">
+            <label for="title">Title</label>
+            <input type="text" id="title" class="text-input">
+            <label for="author">Author</label>
+            <input type="text" id="author" class="text-input">
+            <label for="pages">Pages</label>
+            <input type="text" id="pages" class="text-input">
+            <select name="read" id="read">
+                <option value="read">read</option>
+                <option value="not read">not read</option>
+            </select>
+        </form>
+        <button id="add-book-button">
+            Add Book
+        </button>
+        <table id="library-table">
+            <tr>
+                <td class="header-row">Title</td>
+                <td class="header-row">Author</td>
+                <td class="header-row">Pages</td>
+                <td class="header-row">Read</td>
+                <td class="header-row">Remove Book</td>
+                <td class="header-row">Toggle Read</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
