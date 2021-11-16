@@ -37,7 +37,6 @@ class LetterValueSum {
 
     // finds answers to bonus challenges and prints them
     public static void bonus() {
-        int evenCount = 0;
         int oddCount = 0;
         System.out.println("===== Bonus =====");
         try {
@@ -46,11 +45,9 @@ class LetterValueSum {
             while(myScanner.hasNextLine()) {
                 String word = myScanner.nextLine();
                 int sum = letterSum(word);
-                if(sum == 319)
+                if(sum == 319) // bonus 1
                     System.out.println(word + " has sum of 319");
-                if(sum % 2 == 0)
-                    evenCount++;
-                else if(sum % 2 == 1)
+                else if(sum % 2 == 1) // bonus 2
                     oddCount++;
             }
             myScanner.close();
