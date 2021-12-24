@@ -34,12 +34,14 @@ def all_bonus():
     lines = list()
     for line in temp_lines:
         lines.append(line.strip())
-    print(bonus1(lines), 'has letter sum of 319')
+    print(bonus1(lines), 'has sum of 319')
     print(bonus2(lines), 'words of odd letter sum')
     max_word_sum, max_letter_sum = bonus3(lines)
     print(max_word_sum, 'words with letter sum of', max_letter_sum)
-    # TODO: not done yet
-    # print(bonus4(lines))
+    bonus4_dict = create_bonus4_dict(lines)
+    print(bonus4(bonus4_dict, 11))
+    bonus5_dict = create_bonus5_dict(lines)
+    print(bonus5(bonus5_dict))
 
 
 def bonus1(lines):
@@ -100,17 +102,15 @@ def bonus3(lines):
     return max_num_words, max_letter_sum
 
 
-# TODO: partially done
-def bonus4(lines):
-    """ zyzzyva and biodegradabilities have the same letter sum as each other
-    (151), and their lengths differ by 11 letters. Find the other pair of
-    words with the same letter sum whose lengths differ by 11 letters.
+def create_bonus4_dict(lines):
+    """ Creates a lookup dictionary, allows quick searching by word length,
+    then by letter sum value
 
-    :param list lines: contains words
-    :return: (word1, word2)
-    :rtype: (str, str)
+    :return: dict, key of word length value of inner dict with key of letter
+        sum and value of list of words
+    :rtype: dict
     """
-    lookup_dict = dict()
+    bonus4_dict = dict()
     '''
     A nested dictionary with key of word length and value of another dictionary
     Inner dictionary key of letter sum, value of list of words
@@ -122,18 +122,32 @@ def bonus4(lines):
     for word in lines:
         summed = letter_sum(word)
         # create outer dictionary key entry of word length
-        if len(word) not in lookup_dict:
-            lookup_dict[len(word)] = dict()
+        if len(word) not in bonus4_dict:
+            bonus4_dict[len(word)] = dict()
         # create inner dictionary key entry of letter sum
-        if summed not in lookup_dict[len(word)]:
-            lookup_dict[len(word)][summed] = list()
+        if summed not in bonus4_dict[len(word)]:
+            bonus4_dict[len(word)][summed] = list()
         # add word to inner dictionary
-        lookup_dict[len(word)][summed].append(word)
-    for word_len in sorted(lookup_dict.keys()):
-        if (word_len + 11) not in lookup_dict:
+        bonus4_dict[len(word)][summed].append(word)
+    return bonus4_dict
+
+
+def bonus4(bonus4_dict, length_diff):
+    """ zyzzyva and biodegradabilities have the same letter sum as each other
+    (151), and their lengths differ by 11 letters. Find the other pair of
+    words with the same letter sum whose lengths differ by 11 letters.
+
+    :param dict bonus4_dict:
+    :param int length_diff: word length difference
+    :return: [(word1, word2), (word3, word4), ...]
+    :rtype: list
+    """
+    word_pairs = []
+    for word_len in sorted(bonus4_dict.keys()):
+        if (word_len + length_diff) not in bonus4_dict:
             break
-        first_sums = lookup_dict[word_len].keys()
-        second_sums = lookup_dict[word_len + 11].keys()
+        first_sums = bonus4_dict[word_len].keys()
+        second_sums = bonus4_dict[word_len + 11].keys()
         intersected = set(first_sums).intersection(set(second_sums))
         # Assumed that only 2 words can have same word length and same word sum
         if len(intersected) > 2:
@@ -141,9 +155,54 @@ def bonus4(lines):
                             "length same word sum")
         if len(intersected) == 1:  # same word length, same word sum pair found
             intersected_word_sum = intersected.pop()
-            first_word = lookup_dict[word_len][intersected_word_sum][0]
-            second_word = lookup_dict[word_len + 11][intersected_word_sum][0]
-            return first_word, second_word
+            first_word = bonus4_dict[word_len][intersected_word_sum][0]
+            second_word = bonus4_dict[word_len +
+                                      length_diff][intersected_word_sum][0]
+            word_pairs.append((first_word, second_word))
+    return word_pairs
+
+
+def create_bonus5_dict(lines):
+    """ Creates a lookup dictionary, allows quick searching by letter sum
+
+    :return: dict, key of letter sum, value of list of words
+    :rtype: dict
+    """
+    bonus5_dict = dict()
+    '''
+    A nested dictionary with key of letter sum and value of list of words
+    { 
+      4: ['bb', 'd'],
+      5: ['e'], ...
+    }
+    '''
+    for word in lines:
+        summed = letter_sum(word)
+        if summed > 188:
+            if summed not in bonus5_dict:
+                bonus5_dict[summed] = [word]
+            bonus5_dict[summed].append(word)
+    return bonus5_dict
+
+
+def bonus5(bonus5_dict):
+    """cytotoxicity and unreservedness have the same letter sum as each other
+    (188), and they have no letters in common. Find a pair of words that have
+    no letters in common, and that have the same letter sum, which is larger
+    than 188. (There are two such pairs, and one word appears in both pairs.)
+
+    :param dict bonus5_dict:
+    :return: [(word1, word2), (word1, word3), ...]
+    :rtype: list
+    """
+    pairs = list()
+    for word_sum, words in bonus5_dict.items():
+        for word1 in words:
+            for word2 in words:
+                intersect = set(word1).intersection(set(word2))
+                if len(intersect) == 0 and (word2, word1) not in pairs:
+                    pairs.append((word1, word2))
+    return pairs
 
 
 def main():
