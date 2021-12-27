@@ -1,3 +1,4 @@
+*.exe
 /.idea/
 /out/
 /daily-coding.iml
