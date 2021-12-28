@@ -3,7 +3,7 @@
 using namespace std;
 
 // Sum all values in a int array
-int sum(int any_list[], int list_size) {
+int sum(int any_list[], const int list_size) {
     int summed = 0;
     for (int i =0; i < list_size; i++) {
         summed += any_list[i];

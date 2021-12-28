@@ -1,4 +1,12 @@
+# C and C++
 *.exe
+# C#
+bin/
+obj/
+*.csproj
+# Intellij
 /.idea/
 /out/
 /daily-coding.iml
+# VScode
+.vscode/
