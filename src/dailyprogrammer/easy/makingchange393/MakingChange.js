@@ -1,17 +1,18 @@
 let COINS = [500, 100, 25, 10, 5, 1]
 
+// Gives number of coins needed to make optimal change from money
 function change(money) {
-    let num_coins_list = []
+    let numCoinsList = []
     for(let i = 0; i < COINS.length; i++) {
         let coin = COINS[i]; // select highest change coin
         let leftover = money % coin;
-        let num_coins = Math.floor(money/coin);
-        num_coins_list.push(num_coins);
+        let numCoins = Math.floor(money/coin);
+        numCoinsList.push(numCoins);
         money = leftover
     }
     let sum = 0
-    for(let i = 0; i < num_coins_list.length; i++) {
-        sum += num_coins_list[i]
+    for(let i = 0; i < numCoinsList.length; i++) {
+        sum += numCoinsList[i]
     }
     return sum
 }
