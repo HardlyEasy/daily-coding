@@ -22,8 +22,3 @@ class Solution:
                 li += 1
                 ri += 1
         return total
-
-my_solution = Solution()
-print(my_solution.romanToInt('III'))
-print(my_solution.romanToInt('LVIII'))
-print(my_solution.romanToInt('MCMXCIV'))
