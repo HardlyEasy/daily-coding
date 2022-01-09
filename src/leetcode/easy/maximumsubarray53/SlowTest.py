@@ -1,4 +1,4 @@
-from leetcode.easy.maximumsubarray53.SlowSolution import Solution
+from leetcode.easy.maximumsubarray53.SlowSolution import SlowSolution
 
 s =  Solution()
 ex1, ex2, ex3 = [-2, 1, -3, 4, -1, 2, 1, -5, 4], [1], [5, 4, -1, 7, 8]

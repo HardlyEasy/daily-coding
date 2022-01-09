@@ -1,7 +1,7 @@
 from typing import List
 
 
-class Solution:
+class SlowSolution:
     def maxSubArray(self, nums: List[int]) -> int:
         """Finds largest sum of contiguous subarray within whole array
 
