@@ -1,4 +1,4 @@
-from leetcode.easy.climbingstairs.Solution import Solution
+from leetcode.easy.climbingstairs70.Solution import Solution
 
 s = Solution()
 print(s.climbStairs(3))

@@ -1,4 +1,4 @@
-from leetcode.easy.climbingstairs.SlowSolution import SlowSolution
+from leetcode.easy.climbingstairs70.SlowSolution import SlowSolution
 
 s = SlowSolution()
 print(s.climbStairs(3))
