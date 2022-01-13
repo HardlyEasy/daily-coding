@@ -1,57 +1,135 @@
-const wrapper = document.querySelector('#wrapper');
+// Model, View, Controller pattern used
 
-// Toggle drawing
-let toggleDraw = true;
-window.addEventListener('keydown', (event) => {
-    if ((event.key === 'd' || event.key === "D") && toggleDraw === true ) {
-        toggleDraw = false;
-        console.log("draw off");
+// Models
+const playerFactory = function(name, symbol) {
+    return { name, symbol };
+};
+
+const boardModule = (function() {
+    const board = ['0', '1', '2', '3', '4', '6', '7', '8', '9'];
+    // Update board, return true for success or false
+    const update = function(i, player) {
+        if (board[i] !== 'X' && board[i] !== 'O') {
+            board[i] = player.symbol;
+            return true;
+        }
+        else
+            return false;
+    };
+    // Return list of indexes of win or null
+    const getWin = function() {
+        // Horizontal
+        if (board[0] === board[1] && board[0] === board[2])
+            return [0, 1, 2];
+        else if (board[3] === board[4] && board[3] === board[5])
+            return [3, 4, 6];
+        else if (board[6] === board[7] && board[6] === board[8])
+            return [6, 7, 8];
+        // Vertical
+        else if (board[0] === board[3] && board[0] === board[6])
+            return [0, 3, 6];
+        else if (board[1] === board[4] && board[1] === board[7])
+            return [1, 4, 7];
+        else if (board[2] === board[5] && board[2] === board[8])
+            return [2, 5, 8]
+        // Diagonal
+        else if (board[0] === board[4] && board[0] === board[8])
+            return [0, 4, 8];
+        else if (board[2] === board[4] && board[2] === board[6])
+            return [2, 4, 6];
+        // None
+        else
+            return null;
+    };
+    const reset = function() {
+        for (let i = 0; i < board.length; i++) {
+            board[i] = i.toString();
+        }
     }
-    else {
-        toggleDraw = true;
-        console.log("draw on");
+    return { board, update, getWin, reset };
+})();
+
+// View
+const viewModule = (function() {
+    const gridItems = document.getElementById("board").children;
+    const status = document.getElementById("status")
+    const init = function () {
+        // Tells controller grid item was clicked
+        for (let i = 0; i < gridItems.length; i++) {
+            gridItems[i].addEventListener("click", function() {
+                controlModule.click(i);
+            })
+        }
+        // Show initial player 1 turn status
+        status.innerHTML = 'Player X goes first!';
+    };
+    // Update X or O in HTML
+    const update = function(i, player) {
+        let gridItem = document.getElementById("i" + i);
+        gridItem.innerHTML = boardModule.board[i];
+        status.innerHTML = player.name + ' turn';
+    };
+    // Show which player won
+    const statusWin = function(player) {
+        status.innerHTML = player.name + ' won!!!';
+    };
+    const statusTie = function() {
+        status.innerHTML = 'Tied!!!';
     }
-})
-
-function makeGridItems(gridSize) {
-    const container = document.createElement('div');
-    container.id = "grid-container";
-    container.setAttribute('style', 'grid-template-columns: repeat(' +  gridSize + ', 1fr);');
-    // Create 4x4, 16 div size grid
-    for(let i = 1; i <= (gridSize * gridSize); i++) {
-        const div = document.createElement("div");
-        div.classList.add("grid-item");
-        div.id = "grid-item" + i;
-        //div.textContent = i;
-        container.appendChild(div);
+    const reset = function() {
+        for (let i = 0; i < gridItems.length; i++) {
+            let gridItem = document.getElementById("i" + i);
+            gridItem.innerHTML = '';
+        }
+        status.innerHTML = 'Player X goes first!';
     }
-    wrapper.appendChild(container);
-    // Add mouseover event listeners to all grid-item divs
-    let gridItems = document.querySelectorAll(".grid-item");
-    gridItems.forEach((gridItem) => {
-        gridItem.addEventListener('mouseover', () => {
-            if (toggleDraw === true)
-                gridItem.setAttribute('style', 'background-color:black;');
-        });
-    });
-    
-}
+    return { init, update, statusWin, statusTie, reset };
+})();
 
-
-function clearFunction() {
-    const gridItems = document.querySelectorAll(".grid-item");
-    for (let i = 0; i < gridItems.length; i++) {
-        gridItems[i].style.backgroundColor = "lightblue";
+// Controller
+const controlModule = (function() {
+    const p1 = playerFactory('Player X', 'X');
+    const p2 = playerFactory('Player O', 'O');
+    // Will be incremented from 1 to 9
+    let turn = 1;
+    const init = function() {
+        viewModule.init();
+    };
+    // Click is called from View
+    const click = function(i) {
+        // Game ended
+        if (turn === 0) {
+            console.log('Winner determined already')
+            return;
+        }
+        let currPlayer = p1;
+        if (turn % 2 === 0)
+            currPlayer = p2;
+        let wasUpdated = boardModule.update(i, currPlayer);
+        if (wasUpdated) {
+            viewModule.update(i, currPlayer);
+            turn++;
+            this.handleWin(currPlayer)
+            return;
+        }
+    };
+    const handleWin = function(currPlayer) {
+        let winIndexes = boardModule.getWin();
+        if (winIndexes === null) {
+            return;
+        }
+        viewModule.statusWin(currPlayer);
+        turn = 0;
+    };
+    const reset = function() {
+        console.log("Resetting ...")
+        boardModule.reset();
+        viewModule.reset();
+        turn = 1;
     }
-    gridSize = prompt("Enter new grid size");
-    console.log(gridSize);
-    let container = document.getElementById("grid-container");
-    container.remove();
-    makeGridItems(gridSize);
-}
+    return { init, click, handleWin, reset };
+})();
 
-makeGridItems(16);
-
-// Clear button
-const clearButton = document.querySelector("#clear-button");
-clearButton.addEventListener('click', clearFunction);
+controlModule.init();
+document.getElementById("reset-button").addEventListener(
+    "click", controlModule.reset);
