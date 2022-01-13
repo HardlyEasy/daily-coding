@@ -41,6 +41,7 @@ const boardModule = (function() {
         else
             return null;
     };
+    // Reset board to default state
     const reset = function() {
         for (let i = 0; i < board.length; i++) {
             board[i] = i.toString();
@@ -63,16 +64,19 @@ const viewModule = (function() {
         // Show initial player 1 turn status
         status.innerHTML = 'Player X goes first!';
     };
-    // Update X or O in HTML
-    const update = function(i, player) {
+    // HTML status to player turn
+    const update = function(i) {
         let gridItem = document.getElementById("i" + i);
         gridItem.innerHTML = boardModule.board[i];
-        status.innerHTML = player.name + ' turn';
     };
-    // Show which player won
+    const statusTurn = function(player) {
+        status.innerHTML = player.name + ' turn';
+    }
+    // HTML status to player won
     const statusWin = function(player) {
         status.innerHTML = player.name + ' won!!!';
     };
+    // HTML status to player tied
     const statusTie = function() {
         status.innerHTML = 'Tied!!!';
     }
@@ -83,7 +87,7 @@ const viewModule = (function() {
         }
         status.innerHTML = 'Player X goes first!';
     }
-    return { init, update, statusWin, statusTie, reset };
+    return { init, update, statusTurn, statusWin, statusTie, reset };
 })();
 
 // Controller
@@ -102,20 +106,29 @@ const controlModule = (function() {
             console.log('Winner determined already')
             return;
         }
-        let currPlayer = p1;
-        if (turn % 2 === 0)
-            currPlayer = p2;
-        let wasUpdated = boardModule.update(i, currPlayer);
+        let wasUpdated = boardModule.update(i, getPlayer(turn));
         if (wasUpdated) {
-            viewModule.update(i, currPlayer);
+            viewModule.update(i);
+            viewModule.statusTurn(getPlayer(turn));
             turn++;
-            this.handleWin(currPlayer)
+            handleWinTie(getPlayer(turn))
             return;
         }
+        else {
+            console.log("Space already occupied")
+        }
     };
-    const handleWin = function(currPlayer) {
+    const getPlayer = function(turn) {
+        if (turn % 2 === 1)
+            return p1
+        else
+            return p2
+    }
+    const handleWinTie = function(currPlayer) {
         let winIndexes = boardModule.getWin();
         if (winIndexes === null) {
+            if (turn === 10)
+                viewModule.statusTie();
             return;
         }
         viewModule.statusWin(currPlayer);
@@ -127,7 +140,7 @@ const controlModule = (function() {
         viewModule.reset();
         turn = 1;
     }
-    return { init, click, handleWin, reset };
+    return { init, click, getPlayer, handleWinTie, reset };
 })();
 
 controlModule.init();
