@@ -10,3 +10,5 @@ obj/
 /daily-coding.iml
 # VScode
 .vscode/
+# Node
+node_modules/
