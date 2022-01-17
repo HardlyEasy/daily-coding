@@ -1,0 +1,62 @@
+/* Globals */
+body {
+    font-size: 2em;
+    margin: 0px;
+}
+h1, h2, h3 {
+    text-decoration: underline;
+}
+p {
+    margin-bottom: 0px; /* between paragraphs */
+}
+button {
+    font-size: inherit;
+}
+
+/* Header, Footer */
+#header, #footer {
+    background: #1F2937;
+    color: #F9FAF8;
+}
+#header {
+    display: flex;
+    height: 75px;
+    justify-content: center;
+}
+.text-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin: 0;
+    padding: 0px 30px 0px 30px;
+}
+
+/* Home tab */
+#home, #menu, #contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#home-img {
+    margin: 15px;
+    max-width: 750px;
+}
+
+/* Menu tab */
+#menu {
+    font-family: "Courier New", monospace;
+}
+
+/* Fixed footer, always present at bottom no matter window size */
+#footer {
+    bottom: 0;
+    height: 40px;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+}
+.clear-footer {
+    clear: both;
+    height: 60px;
+}
