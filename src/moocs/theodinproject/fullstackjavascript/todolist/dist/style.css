@@ -1,0 +1,65 @@
+/* Variables */
+:root {
+    /* Sizing */
+    --header-height: 90px;
+    --footer-height: 60px;
+    --main-height: calc(100vh - var(--header-height) - var(--footer-height));
+    /* Colors */
+    --black: #333333;
+    --gray: #dddddd;
+    --white: #eeeeee;
+    /* Font */
+    --large-font: 36px;
+    --medium-font: 24px;
+    --small-font: 16px;
+}
+a {
+    font-size: var(--medium-font);
+}
+
+body {
+    font-family: Consolas, monaco, monospace;
+    margin: 0;
+}
+
+h1 {
+    text-decoration: underline;
+    text-align: center;
+}
+
+#main-div {
+    display: flex;
+    flex-direction: row;
+    height: var(--main-height);
+}
+
+#header {
+    align-items: center;
+    background-color: var(--black);
+    display: flex;
+    justify-content: center;
+    height: var(--header-height);
+}
+
+#header-text, footer-text {
+    color: var(--white);
+    font-size: var(--large-font);
+}
+
+#left-div {
+    background-color: var(--gray);
+    width: 25%;
+}
+
+#right-div {
+    background-color: var(--white);
+    width: 75%;
+}
+
+#footer {
+    align-items: center;
+    background-color: var(--black);
+    display: flex;
+    justify-content: center;
+    height: var(--footer-height);
+}
