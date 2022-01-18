@@ -1,4 +1,4 @@
-# Project: Tic Tac Toe
+# List: Tic Tac Toe
 
 ## Introduction
 We’re making a Tic Tac Toe game you can play in your browser!

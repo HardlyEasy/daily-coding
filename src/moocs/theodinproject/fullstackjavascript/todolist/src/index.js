@@ -1,5 +1,3 @@
-import { projectView } from './project'
-import { taskView } from './task'
+import { controller } from './controller'
 
-projectView.init();
-taskView.init();
+controller.init();

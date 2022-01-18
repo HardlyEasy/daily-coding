@@ -1,4 +1,4 @@
-# Project: Todo List
+# List: Todo List
 
 ## Introduction
 At this point you’ve already had a fair amount of practice using the various 
