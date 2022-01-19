@@ -1,42 +1,45 @@
 import { model } from "./model"
 import { controller } from "./controller";
+import { PROJECT_CLASSES, TASK_CLASSES } from "./constants"
 
-const CLASS_PROJECT = "project";
-const CLASS_PROJECT_BUTTON = CLASS_PROJECT + " button";
-const CLASS_PROJECT_TEXT = CLASS_PROJECT + " text"
+// TODO: maybe a better way of doing constants here
 
-const CLASS_TASK = "task";
-const CLASS_TASK_BUTTON = CLASS_TASK + " button";
-const CLASS_TASK_TEXT = CLASS_TASK + " text"
 
 const view = (function() {
     const leftDiv = document.getElementById("left-div");
-    const makeElement = function(elementName, className, textStr) {
-        let element = document.createElement(elementName);
-        if (className !== "")
-            element.className = className;
-        if (textStr !== "") {
-            let textNode = document.createTextNode(textStr);
-            element.appendChild(textNode);
-        }
-        return element
+    const init = function() {
+        let projectTitle = document.createElement("div");
+        projectTitle.className = PROJECT_CLASSES.HEADER;
+        projectTitle.innerHTML = "Projects";
+        leftDiv.appendChild(projectTitle);
+        let imgElement = document.createElement("img");
+        imgElement.src = "../images/plus.png";
+        imgElement.className = PROJECT_CLASSES.ADD;
+        imgElement.addEventListener("click", function() {
+            controller.click(imgElement);
+        });
+        leftDiv.append(projectTitle, imgElement);
     }
     const addProject = function(elementName, className, project) {
-        let projectDiv = makeElement("div", CLASS_PROJECT, "");
-        let textDiv = makeElement("div", CLASS_PROJECT_TEXT, project.name);
+        // project div has children of textDiv and imageDiv
+        let projectDiv = document.createElement("div");
+        projectDiv.className = PROJECT_CLASSES.DIV;
+        let textDiv = document.createElement("div");
+        textDiv.className = PROJECT_CLASSES.TEXT;
+        textDiv.innerHTML = project.name;
         textDiv.addEventListener("click", function() {
-           controller.click(textDiv);
+            controller.click(textDiv);
         });
         projectDiv.appendChild(textDiv);
         leftDiv.appendChild(projectDiv);
-    }
+    };
     const renderProjects = function() {
         for (let i = 0; i < model.projectList.length; i++) {
             let project = model.projectList[i];
-            addProject("div", CLASS_PROJECT, project);
+            addProject("div", PROJECT_CLASSES.DIV, project);
         }
-    }
-    return { addProject, renderProjects };
+    };
+    return { init, addProject, renderProjects };
 })();
 
 export { view };
