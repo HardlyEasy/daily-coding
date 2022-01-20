@@ -35,11 +35,18 @@ body {
     align-items: center;
     display: flex;
 }
-.project.text:hover, #left-div img:hover, #right-div img:hover {
+.project.text:hover, .task.text:hover, #left-div img:hover, #right-div img:hover {
     cursor: pointer;
 }
 .project.text:hover {
     color: blue;
+}
+.task.text:hover {
+    color: green;
+}
+.task {
+    align-items: center;
+    display: flex;
 }
 .delete:hover {
     background: red;

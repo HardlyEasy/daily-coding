@@ -1,4 +1,4 @@
-import { model } from './model'
+import { currentUser } from './model'
 import { controller } from './controller';
 import { PROJECT_CLASSES, TASK_CLASSES } from './constants'
 
@@ -53,8 +53,9 @@ const taskView = (function() {
         render();
     };
     const render = function() {
-        for (let i = 0; i < model.taskList.length; i++) {
-            let task = model.taskList[i];
+        let taskList = currentUser.getTaskList();
+        for (let i = 0; i < taskList.length; i++) {
+            let task = taskList[i];
             let taskDiv = common.createDiv('t' + i, TASK_CLASSES.DIV, '')
             let textDiv = common.createDiv(
                 '', TASK_CLASSES.TEXT, task.description);
@@ -85,8 +86,8 @@ const projectView = (function() {
         render();
     };
     const render = function() {
-        for (let i = 0; i < model.projectList.length; i++) {
-            let project = model.projectList[i];
+        for (let i = 0; i < currentUser.projectList.length; i++) {
+            let project = currentUser.projectList[i];
             let projectDiv = common.createDiv('p' + i, PROJECT_CLASSES.DIV, '')
             let textDiv = common.createDiv(
                 '', PROJECT_CLASSES.TEXT, project.name);

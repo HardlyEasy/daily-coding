@@ -1,52 +1,55 @@
-import { model } from './model';
+import { Project, Task, currentUser } from './model';
 import { projectView, taskView } from './view';
 import { PROJECT_CLASSES, TASK_CLASSES } from './constants'
 
 const controller = (function() {
     const init = function() {
         projectView.init();
+        projectView.refresh();
         taskView.init();
+        taskView.refresh();
+        console.log(currentUser);
     }
-    // Control based on clicked element class name
     const click = function(element) {
         switch (element.className) {
             case PROJECT_CLASSES.ADD: {
                 let projectName = window.prompt('Enter project name: ');
                 if (projectName === null || projectName === '')
                     break
-                model.addProject(projectName);
-                projectView.refresh();
+                currentUser.addProject(new Project(projectName));
             } break;
-            case PROJECT_CLASSES.DELETE:
-                model.removeProject(element.id.slice(1));
-                projectView.refresh();
-                break;
+            case PROJECT_CLASSES.DELETE: {
+                let projectListIndex = element.parentElement.id.slice(1);
+                currentUser.removeProject(projectListIndex);
+            } break;
+            case PROJECT_CLASSES.TEXT: {
+                let projectListIndex = parseInt(
+                    element.parentElement.id.slice(1));
+                currentUser.currentProjectIndex = projectListIndex;
+            } break;
             case TASK_CLASSES.ADD: {
                 let description = window.prompt('Enter task name: ');
                 if (description === null || description === '')
                     break
-                model.addTask(description, 'a', 'b');
-                taskView.refresh();
+                currentUser.addTask(
+                    new Task(description, '01-01-2021', 'Important'))
             } break;
+            /*
             case TASK_CLASSES.DELETE: {
                 let modelListIndex = element.id.slice(1);
                 model.removeTask(modelListIndex);
-                taskView.refresh();
             } break;
-            case PROJECT_CLASSES.TEXT: {
-                let projectDiv = element.parentNode;
-                let projectListIndex = projectDiv.id.slice(1);
-                model.selectedProject = model.projectList[projectListIndex];
-            } break;
+            */
             default:
                 console.log('switch: default');
         }
-        debugReport();
+        projectView.refresh();
+        taskView.refresh();
+        console.log(currentUser);
     }
-    const debugReport = function() {
-        console.log(model.getDebugReport());
-    }
-    return { init, click }
+    return {
+        init, click
+    };
 })();
 
 export { controller };
