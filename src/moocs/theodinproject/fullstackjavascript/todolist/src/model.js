@@ -4,10 +4,8 @@ class Project {
     }
 }
 
-class Task extends Project {
-    // Takes project object
-    constructor(project, description, dueDate, priority) {
-        super(project.name);
+class Task {
+    constructor (description, dueDate, priority) {
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
@@ -15,26 +13,32 @@ class Task extends Project {
 }
 
 const model = (function() {
+    let selectedProject;
     const projectList = [];
     const taskList = []
-    // TODO: Limit character length allowed
-    const createProject = function(projectName) {
-        return new Project(projectName);
+    const addProject = function(projectName) {
+        projectList.push(new Project(projectName));
     }
-    // TODO: Guard against invalid dates, limit length?
-    const createTask = function(project, description, dueDate, priority) {
-        return new Task(project, description, dueDate, priority);
+    const addTask = function(description, dueDate, priority) {
+        taskList.push(
+            new Task(selectedProject, description, dueDate, priority));
     }
-    const addProject = function(project) {
-        projectList.push(project);
-    };
-    const addTask = function(task) {
-        taskList.push(task);
+    const removeProject = function (i) {
+        projectList.splice(i, 1);
+    }
+    const removeTask = function (i) {
+        taskList.splice(i, 1);
+    }
+    const getDebugReport = function() {
+        return {
+            selectedProject, projectList, taskList
+        }
     }
     return {
         projectList, taskList,
-        createProject, createTask,
-        addProject, addTask
+        addProject, removeProject,
+        addTask, removeTask,
+        getDebugReport
     }
 })();
 

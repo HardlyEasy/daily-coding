@@ -1,7 +1,7 @@
 :root {
     /* Variable names */
-    --PROJECT_CLASS: "project-text";
-    --TASK_CLASS: "task-text";
+    --PROJECT_CLASS: 'project-text';
+    --TASK_CLASS: 'task-text';
     /* Sizing */
     --header-height: 90px;
     --footer-height: 60px;
@@ -15,7 +15,6 @@
     --medium-font: 20px;
     --small-font: 14px;
 }
-
 
 /* Affect whole page */
 a {
@@ -32,17 +31,20 @@ body {
 }
 
 /* Classes */
-.project.text:hover, #left-div img:hover {
+.project {
+    align-items: center;
+    display: flex;
+}
+.project.text:hover, #left-div img:hover, #right-div img:hover {
     cursor: pointer;
 }
 .project.text:hover {
     color: blue;
 }
-.project.add:hover {
-    color: green;
+.delete:hover {
+    background: red;
 }
-
-.project.header {
+.header {
     margin-top: 15px;
     font-size: var(--large-font);
     font-weight: bold;
@@ -68,14 +70,16 @@ body {
     flex-direction: row;
     height: var(--main-height);
 }
-/* Left */
+#left-div, #right-div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
 #left-div {
     background-color: var(--gray);
-    text-align: center;
     width: 25%;
 }
-
-/* Right */
 #right-div {
     background-color: var(--white);
     width: 75%;
