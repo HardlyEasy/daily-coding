@@ -1,6 +1,6 @@
 import { currentUser } from './model'
 import { controller } from './controller';
-import { PROJECT_CLASSES, TASK_CLASSES } from './constants'
+import { PROJECT_CLASSES, TASK_CLASSES, IMG_SRCS } from './constants'
 
 // Shared functions for taskView and projectView
 const common = (function() {
@@ -13,7 +13,7 @@ const common = (function() {
         if (innerHTML !== '')
             divElement.innerHTML = innerHTML;
         return divElement;
-    }
+    };
     const createImg = function(id, className, src) {
         let imgElement = document.createElement('img');
         if (id !== '')
@@ -26,7 +26,7 @@ const common = (function() {
             controller.click(imgElement);
         });
         return imgElement;
-    }
+    };
     // Remove all elements exact matching class
     const removeElements = function (removeClassName) {
         let element = document.getElementsByClassName(removeClassName);
@@ -46,25 +46,27 @@ const taskView = (function() {
     const init = function() {
         rightDiv.append(common.createDiv('', TASK_CLASSES.HEADER, 'Tasks'));
         rightDiv.append(
-            common.createImg('', TASK_CLASSES.ADD, '../images/plus.svg'));
-    }
+            common.createImg('', TASK_CLASSES.ADD, IMG_SRCS.PLUS_BUTTON));
+    };
     const refresh = function() {
         common.removeElements('task');
         render();
     };
     const render = function() {
-        let taskList = currentUser.getTaskList();
+        let taskList = currentUser.getProject().taskList;
         for (let i = 0; i < taskList.length; i++) {
             let task = taskList[i];
-            let taskDiv = common.createDiv('t' + i, TASK_CLASSES.DIV, '')
+            let taskDiv = common.createDiv('t' + i, TASK_CLASSES.DIV, '');
+            let priorityButton = common.createImg('', TASK_CLASSES.PRIORITY,
+                IMG_SRCS.PRIORITY_BUTTON);
             let textDiv = common.createDiv(
                 '', TASK_CLASSES.TEXT, task.description);
             textDiv.addEventListener('click', function() {
                 controller.click(textDiv);
             });
             let deleteImg = common.createImg(
-                '', TASK_CLASSES.DELETE, '../images/delete.svg')
-            taskDiv.append(textDiv, deleteImg);
+                '', TASK_CLASSES.DELETE, IMG_SRCS.DELETE_BUTTON);
+            taskDiv.append(textDiv, priorityButton, deleteImg);
             rightDiv.appendChild(taskDiv);
         }
     };
@@ -79,7 +81,7 @@ const projectView = (function() {
         leftDiv.append(
             common.createDiv('', PROJECT_CLASSES.HEADER, 'Projects'));
         leftDiv.append(
-            common.createImg('', PROJECT_CLASSES.ADD, '../images/plus.svg'));
+            common.createImg('', PROJECT_CLASSES.ADD, IMG_SRCS.PLUS_BUTTON));
     };
     const refresh = function() {
         common.removeElements('project');
@@ -95,7 +97,7 @@ const projectView = (function() {
                 controller.click(textDiv);
             });
             let deleteImg = common.createImg(
-                '', PROJECT_CLASSES.DELETE, '../images/delete.svg')
+                '', PROJECT_CLASSES.DELETE, IMG_SRCS.DELETE_BUTTON);
             projectDiv.append(textDiv, deleteImg);
             leftDiv.appendChild(projectDiv);
         }

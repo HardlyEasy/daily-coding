@@ -11,7 +11,14 @@ const TASK_CLASSES = {
     HEADER: 'task header',
     ADD: 'task add',
     DELETE: 'task delete',
+    PRIORITY: 'task priority',
     TEXT: 'task text'
 };
 
-export {PROJECT_CLASSES, TASK_CLASSES};
+const IMG_SRCS = {
+    PRIORITY_BUTTON: '../images/priority_button.svg',
+    PLUS_BUTTON: '../images/plus.svg',
+    DELETE_BUTTON: '../images/delete.svg'
+}
+
+export {PROJECT_CLASSES, TASK_CLASSES, IMG_SRCS};

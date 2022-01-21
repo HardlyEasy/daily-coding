@@ -19,27 +19,26 @@ const controller = (function() {
                 currentUser.addProject(new Project(projectName));
             } break;
             case PROJECT_CLASSES.DELETE: {
-                let projectListIndex = element.parentElement.id.slice(1);
+                let projectListIndex = parseInt(
+                    element.parentElement.id.slice(1));
                 currentUser.removeProject(projectListIndex);
             } break;
             case PROJECT_CLASSES.TEXT: {
-                let projectListIndex = parseInt(
+                let projectIndex = parseInt(
                     element.parentElement.id.slice(1));
-                currentUser.currentProjectIndex = projectListIndex;
+                currentUser.setProjectIndex(projectIndex);
             } break;
             case TASK_CLASSES.ADD: {
                 let description = window.prompt('Enter task name: ');
                 if (description === null || description === '')
                     break
-                currentUser.addTask(
-                    new Task(description, '01-01-2021', 'Important'))
+                currentUser.getProject().addTask(new Task(description, 0))
             } break;
-            /*
             case TASK_CLASSES.DELETE: {
-                let modelListIndex = element.id.slice(1);
-                model.removeTask(modelListIndex);
+                let taskListIndex = parseInt(
+                    element.parentElement.id.slice(1));
+                currentUser.getProject().removeTask(taskListIndex);
             } break;
-            */
             default:
                 console.log('switch: default');
         }
