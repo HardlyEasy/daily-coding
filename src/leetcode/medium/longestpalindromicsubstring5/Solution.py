@@ -1,3 +1,17 @@
+"""Dynamic Programming
+Notes:
+    problem, what is the longest palindrome, for each poss center indexes (l/r)
+    sub-problems, palindrome if left/right letter equal, center palindrome
+    the sub-problems use memory of center being palindrome, efficient
+O(n^2):
+    n, assumptions for center
+        n, comparisons to make for assumption
+Runtime:
+    3096 ms, faster than 25.52% of Python3
+Memory Usage:
+    13.9 MB, less than 97.61% of Python3
+"""
+
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         if len(s) == 1:

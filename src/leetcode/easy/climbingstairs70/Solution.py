@@ -1,3 +1,15 @@
+"""Hashmap
+Notes:
+    I probably didn't need a dict?
+    Two variables to store 2 previous stairs would've worked too
+O(n):
+    n, traverse each stair
+Runtime:
+    46 ms, faster than 26.32% of Python3
+Memory Usage:
+    13.9 MB, less than 99.72% of Python3
+"""
+
 class Solution:
     def climbStairs(self, n: int) -> int:
         return self.climb(n)

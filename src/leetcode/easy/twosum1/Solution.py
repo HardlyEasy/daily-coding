@@ -1,3 +1,19 @@
+"""Hashmap, 2-pass (populate hm, pass array + search)
+Notes:
+    this problem just wants you to get the fastest possible search
+    we know what desired number we want, desired = target - num1
+    hashmap allows for fast searching, so we'll use that
+    constraints of problem are convenient/make things easier also
+O(n):
+    n, populate hashmap
+    n, pass through array
+        1, hm search time
+Runtime:
+    136 ms, faster than 38.94% of Python3
+Memory Usage:
+    16 MB, less than 8.46% of Python3
+"""
+
 from typing import List
 
 

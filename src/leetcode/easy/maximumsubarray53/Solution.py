@@ -1,4 +1,15 @@
-
+"""Dynamic Programming, Kadane's Algorithm
+Notes:
+    problem, largest contiguous sum, at each index
+    sub-problem, largest sum is max(prev_max, prev_max + curr_num)
+    the sub-problems use memory of previous maximum, efficient
+O(n):
+    n, find local_max at each index and set new global max if possible
+Runtime:
+    954 ms, faster than 40.87% of Python3
+Memory Usage:
+    28.4 MB, less than 73.64% of Python3
+"""
 
 from typing import List
 

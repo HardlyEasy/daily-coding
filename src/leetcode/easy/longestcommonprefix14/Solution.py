@@ -1,8 +1,14 @@
-"""Binary Search O(log n)
-Runtime: 31 ms, faster than 87.98% of Python3 online submissions for
-Longest Common Prefix.
-Memory Usage: 13.9 MB, less than 99.95% of Python3 online submissions for
-Longest Common Prefix.
+"""Binary Search
+Notes:
+    bit confusing on indexes and where to stop/where midpt is (even/odd)
+    time complexity O(log n) is probs roughly right, but this might be
+    a little diff than a usual binary search b/c of its string, not int array
+O(log n): (? checking till min str length changes this ?)
+    log(base2)n, number of splitting operations
+Runtime:
+    31 ms, faster than 87.98% of Python3
+Memory Usage:
+    13.9 MB, less than 99.95% of Python3
 """
 
 from typing import List

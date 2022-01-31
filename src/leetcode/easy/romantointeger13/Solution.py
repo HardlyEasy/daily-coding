@@ -1,3 +1,18 @@
+"""Hashmap
+Notes:
+    not much going on here
+    hashmap for fast lookup and O(n) to iterate through
+    weirdness with making sure left/right index are in right place
+    this weirdness could prob be improved on, but whatever
+O(n):
+    n, advance left/right index
+        1, check single/double dicts
+Runtime:
+    52 ms, faster than 64.60% of Python3
+Memory Usage:
+    13.9 MB, less than 99.89% of Python3
+"""
+
 class Solution:
     def romanToInt(self, s: str) -> int:
         single_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50,
