@@ -1,5 +1,14 @@
-"""
-
+"""Hashmap
+Notes:
+    uses hashmap for efficient lookup
+    uses set to prevent duplicate triplets
+    dirtiness from fixing set after
+Time: O(n^2)
+    n, populate hashmap
+    n, pick i
+        n, pick j
+            1, lookup k
+    n, tidy set
 Runtime:
     900 ms, faster than 74.81% of Python3
 Memory Usage:
