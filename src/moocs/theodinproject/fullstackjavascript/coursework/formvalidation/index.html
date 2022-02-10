@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic User Interfaces</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+<div id="header">
+    <form id="my-form" action="#" method="get">
+        <div class="form-line">
+            <label for="email">Email: </label>
+            <input class="toggle-border" type="email" id="email" name="email">
+        </div>
+        <div class="form-line">
+            <label for="zipcode">Zipcode: </label>
+            <input type="text" id="zipcode" name="zipcode">
+        </div>
+        <div class="form-line">
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="form-line">
+            <label for="passwordConfirm">Confirm Password: </label>
+            <input type="password" id="passwordConfirm"
+                   name="passwordConfirm">
+        </div>
+        <div class="form-submit">
+            <button type="submit" onclick="handleSubmit()">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div id="main">
+
+</div>
+</body>
+</html>
