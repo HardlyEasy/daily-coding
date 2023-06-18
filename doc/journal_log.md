@@ -19,4 +19,5 @@ it's incomplete in other words
 [2023-04-03] leetcode easy 94 py
 [2023-04-20] leetcode easy 412 java js py
 [2023-05-21] leetcode easy 101 py
+[2023-06-18] leetcode easy 118 py
 ```

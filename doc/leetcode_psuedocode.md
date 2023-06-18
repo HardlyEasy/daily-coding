@@ -415,7 +415,12 @@ symmetry defined as
 	symmetric if values match
 ```
 
-##
+## 118. Pascal's Triangle [2023-06-18] py
+```
+create pascal function, pascal(prev_row)
+just apply pascal function as necessary
+simple problem
+```
 
 # Medium
 
