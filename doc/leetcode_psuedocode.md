@@ -422,6 +422,11 @@ just apply pascal function as necessary
 simple problem
 ```
 
+## 119. Pascal's Triangle II [2023-06-19] java,py
+```
+
+```
+
 # Medium
 
 # Hard
